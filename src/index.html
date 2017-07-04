@@ -7,6 +7,69 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCTlWzTrHTvQKJXteAk4EFArwt7b6UHxnE",
+    authDomain: "jobsdatabase-f76ad.firebaseapp.com",
+    databaseURL: "https://jobsdatabase-f76ad.firebaseio.com",
+    storageBucket: "jobsdatabase-f76ad.appspot.com",
+    messagingSenderId: "1059488853648"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js">
+</script>
+<script>
+
+
+function init(){
+  var socket = io('http://ec2-52-64-133-102.ap-southeast-2.compute.amazonaws.com:3050')
+
+socket.on('message',function(msg){
+  document.getElementById("number").textContent=msg;
+
+})
+
+socket.on('crawling',function(msg){
+var button =   document.getElementById("crawl")
+button.textContent=msg;
+button.disabled = true;
+});
+socket.on('crawlfinished',function(msg){
+var button =   document.getElementById("crawl")
+button.textContent="Crawl Web";
+button.disabled = false;
+})
+
+
+  var b = document.getElementById('crawl')
+  b.onclick = function(){
+    socket.emit('startCrawl',null);
+  }
+}
+
+
+window.onload = init
+
+</script>
+<!-- this.socket.emit("startCrawl",null);
+
+
+     this.socket
+         .fromEvent<any>("message")
+         .subscribe(data => this.userCount = data);
+
+ }
+
+ -->
+
+
+
+
 </head>
 <body>
   <app-root>Loading...</app-root>

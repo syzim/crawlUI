@@ -1,3 +1,24 @@
-<h1>
-  {{title}}
-</h1>
+
+<div>
+<h2>Job Listings ({{jobCount}})</h2>
+<strong>Users Connected: <span id ="number"></span></strong>
+</div>
+<button id="crawl">Crawl the Web</button>
+<ul>
+
+<li *ngFor="let keyword of keyWords$  | async" >
+<barGraph [count]='keyword.members_count'[totalJobs]='jobCount'></barGraph>
+
+{{keyword.$key}}
+
+
+</li>
+
+</ul>
+<ul>
+<div id = "jobdata" >
+<li *ngFor='let job of sorted'>
+  {{job.jobTitle}}</li>
+
+</div>
+</ul>
